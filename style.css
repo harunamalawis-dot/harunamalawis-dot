@@ -1,0 +1,195 @@
+/* Base styles for the cyber theme */
+body {
+    background-color: #0d1117;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.main-container {
+    width: 800px;
+    max-width: 90%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 20px 5px #00ff00, 0 0 30px 10px #00cc00 inset;
+    text-align: center;
+}
+
+h1, .cyber-title {
+    font-size: 3rem;
+    animation: pulse 1s infinite alternate;
+}
+
+.cyber-title {
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.03); }
+}
+
+.cyber-text {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+    font-weight: bold;
+}
+
+/* Radio button styles */
+.question-type-selection {
+    margin: 20px 0;
+}
+
+.question-type-selection label {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #00ff00;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #00ff00;
+}
+
+/* Question and button styles */
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: rgba(0, 255, 0, 0.2);
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    outline: none;
+    cursor: pointer;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.btn.correct {
+    background-color: #00ff00;
+    color: #0d1117;
+    text-shadow: none;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.btn.wrong {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: #fff;
+    box-shadow: 0 0 10px #ff0000;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.start-btn, .next-btn {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    letter-spacing: 2px;
+}
+
+.hide {
+    display: none;
+}
+
+/* New ending visuals styles */
+.ending-visual {
+    margin-top: 20px;
+}
+
+.ending-text {
+    position: relative;
+    padding: 10px;
+    min-height: 50px; /* Ensure space for the typewriter effect */
+}
+
+.typewriter-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid transparent;
+}
+
+.cursor {
+    animation: blink-caret 0.75s step-end infinite;
+    color: #00ff00;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #00ff00; }
+}
+
+.progress-bar-container {
+    width: 80%;
+    margin: 20px auto;
+    height: 20px;
+    background-color: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0;
+    transition: width 2s ease-out;
+}
+
+.progress-bar-fill.success {
+    background-color: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    width: 100%; /* Filled on success */
+}
+
+.progress-bar-fill.fail {
+    background-color: #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+    width: 50%; /* Partially filled on fail */
+}
