@@ -20,6 +20,8 @@ body {
     padding: 20px;
     box-shadow: 0 0 20px 5px #00ff00, 0 0 30px 10px #00cc00 inset;
     text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 h1, .cyber-title {
@@ -95,6 +97,7 @@ input[type="radio"]:checked::before {
     border: 1px solid #00ff00;
     border-radius: 5px;
     padding: 10px;
+    padding-right: 40px;
     font-size: 1.2rem;
     outline: none;
     cursor: pointer;
@@ -112,14 +115,30 @@ input[type="radio"]:checked::before {
     background-color: #00ff00;
     color: #0d1117;
     text-shadow: none;
-    box-shadow: 0 0 10px #00ff00;
+    box-shadow: 0 0 15px 5px #00ff00;
+    position: relative;
+}
+
+.btn.correct::after {
+    content: ' ✓';
+    position: absolute;
+    right: 15px;
+    font-size: 1.5rem;
 }
 
 .btn.wrong {
     background-color: #ff0000;
     border-color: #ff0000;
     color: #fff;
-    box-shadow: 0 0 10px #ff0000;
+    box-shadow: 0 0 15px 5px #ff0000;
+    position: relative;
+}
+
+.btn.wrong::after {
+    content: ' ✗';
+    position: absolute;
+    right: 15px;
+    font-size: 1.5rem;
 }
 
 .controls {
@@ -147,12 +166,17 @@ input[type="radio"]:checked::before {
 .ending-text {
     position: relative;
     padding: 10px;
-    min-height: 50px; /* Ensure space for the typewriter effect */
+    min-height: 50px;
+    /* UPDATED: Aggressively force text to wrap */
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .typewriter-text {
     overflow: hidden;
-    white-space: nowrap;
+    /* REMOVED: This was preventing the text from wrapping */
+    white-space: initial;
     border-right: 2px solid transparent;
 }
 
@@ -185,11 +209,93 @@ input[type="radio"]:checked::before {
 .progress-bar-fill.success {
     background-color: #00ff00;
     box-shadow: 0 0 10px #00ff00;
-    width: 100%; /* Filled on success */
+    width: 100%;
 }
 
 .progress-bar-fill.fail {
     background-color: #ff0000;
     box-shadow: 0 0 10px #ff0000;
-    width: 50%; /* Partially filled on fail */
+    width: 50%;
+}
+
+/* Styling for the Player Name Input */
+.player-profile-section {
+     margin-bottom: 20px;
+}
+
+.name-input {
+    background-color: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 50%;
+    max-width: 300px;
+}
+
+.name-input::placeholder {
+    color: rgba(0, 255, 0, 0.7);
+}
+
+
+/* Leaderboard Styles */
+.leaderboard-container {
+    margin-top: 40px;
+    border-top: 1px solid #00ff00;
+    padding-top: 20px;
+}
+
+#leaderboard-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#leaderboard-list li {
+    padding: 5px 0;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed rgba(0, 255, 0, 0.5);
+}
+
+
+/* --- Responsive Design Additions for Mobile --- */
+
+@media (max-width: 768px) {
+    h1, .cyber-title {
+        font-size: 2rem;
+    }
+
+    .cyber-text {
+        font-size: 1rem;
+    }
+
+    .question-type-selection label {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .btn-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .start-btn, .next-btn, .btn {
+        font-size: 1rem;
+        padding-right: 20px;
+    }
+    
+    .main-container {
+        padding: 15px;
+    }
+
+    .name-input {
+        width: 80%;
+    }
+
+    /* This rule is no longer needed with the fix above */
+    /* .ending-text .typewriter-text { white-space: normal; } */
 }

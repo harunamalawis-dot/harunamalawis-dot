@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Under Attack</title>
+    <title>Tech Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-container">
         <!-- The Intro Screen (initially visible) -->
         <div id="intro-screen">
-            <h1 class="cyber-title">SYSTEM UNDER ATTACK!</h1>
-            <p class="cyber-text">A malicious program has encrypted the core system files.</p>
-            <p class="cyber-text">To repair the system, you must successfully answer 15 number system questions.</p>
+            <h1 class="cyber-title">TECH QUIZ</h1>
+            <p class="cyber-text">Welcome to the Tech Quiz!</p>
+            
+            <!-- Player Name Input Section -->
+            <div class="player-profile-section">
+                <label for="playerName" class="cyber-text">Player Name:</label>
+                <input type="text" id="playerName" placeholder="Enter your name" class="name-input">
+            </div>
+
+            <p class="cyber-text">Answer 15 number system questions to complete the quiz.</p>
             <div class="question-type-selection">
                 <p>Choose your question type:</p>
                 <label>
@@ -25,9 +32,17 @@
                     <input type="radio" name="qType" value="hex"> Hexadecimal Conversions
                 </label>
             </div>
-            <p class="cyber-text">Click the <span class="highlight">"RUN DECRYPT"</span> button to begin the repair process.</p>
+            <p class="cyber-text">Click the <span class="highlight">"START QUIZ"</span> button to begin.</p>
             <div class="controls">
-                <button id="start-btn" class="start-btn btn">RUN DECRYPT</button>
+                <button id="start-btn" class="start-btn btn">START QUIZ</button>
+            </div>
+
+            <!-- Local Leaderboard Section -->
+            <div class="leaderboard-container">
+                <h2 class="cyber-title" style="font-size: 1.5rem;">Local Leaderboard</h2>
+                <ul id="leaderboard-list">
+                    <!-- Leaderboard entries will be dynamically inserted here -->
+                </ul>
             </div>
         </div>
 
@@ -50,7 +65,7 @@
 
         <!-- The Success Screen (initially hidden) -->
         <div id="success-screen" class="hide">
-            <h1 class="cyber-title">SYSTEM REPAIRED</h1>
+            <h1 class="cyber-title">QUIZ COMPLETE</h1>
             <div class="ending-visual">
                 <div class="ending-text">
                     <span class="typewriter-text" id="final-message-success"></span><span class="cursor">_</span>
@@ -60,13 +75,13 @@
                 </div>
             </div>
             <div class="controls">
-                <button id="restart-btn-success" class="start-btn btn">RESTART SYSTEM</button>
+                <button id="restart-btn-success" class="start-btn btn">PLAY AGAIN</button>
             </div>
         </div>
 
         <!-- The Fail Screen (initially hidden) -->
         <div id="fail-screen" class="hide">
-            <h1 class="cyber-title">FAILURE</h1>
+            <h1 class="cyber-title">QUIZ INCOMPLETE</h1>
             <div class="ending-visual">
                 <div class="ending-text">
                     <span class="typewriter-text" id="final-message-fail"></span><span class="cursor">_</span>
@@ -80,6 +95,12 @@
             </div>
         </div>
     </div>
+    
+    <!-- ADDED: Audio tag for background music -->
+    <audio id="backgroundMusic" loop muted autoplay>
+        <source src="background.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <script src="script.js"></script>
 </body>
 </html>
