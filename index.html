@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- CRITICAL LINE: This must match your CSS filename and location exactly -->
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <div class="main-container">
@@ -24,6 +25,10 @@
                 <p>Choose your question type:</p>
                 <label>
                     <input type="radio" name="qType" value="binary" checked> Binary Conversions
+                </label>
+                <label>
+                    <!-- Octal Level Added -->
+                    <input type="radio" name="qType" value="octal"> Octal Conversions
                 </label>
                 <label>
                     <input type="radio" name="qType" value="decimal"> Decimal Conversions
