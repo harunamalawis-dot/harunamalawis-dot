@@ -1,57 +1,67 @@
-/* --- CSS TEST RULE: If you see a yellow border around the page, this file IS LOADING! --- */
+/* --- CSS TEST RULE: If you see a light blue border around the page, this file IS LOADING! --- */
 body {
-    border: 5px solid yellow !important;
+    border: 5px solid #e0f7fa !important;
 }
 
-/* Base styles for the cyber theme */
+/* Base styles for the light, student-friendly theme */
 body {
-    background-color: #0d1117;
+    background-color: #f0f8ff; /* AliceBlue background */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: 'Courier New', monospace;
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cleaner font */
+    color: #004d40; /* Dark teal for good contrast */
 }
 
 .main-container {
     width: 800px;
     max-width: 90%;
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 2px solid #00ff00;
-    border-radius: 5px;
+    background-color: #ffffff; /* White container */
+    border: 1px solid #b2ebf2; /* Light blue border */
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 0 20px 5px #00ff00, 0 0 30px 10px #00cc00 inset;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow instead of intense glow */
     text-align: center;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
 h1, .cyber-title {
-    font-size: 3rem;
-    animation: pulse 1s infinite alternate;
-}
-
-.cyber-title {
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.03); }
-}
-
-.cyber-text {
-    font-size: 1.2rem;
+    font-size: 2.5rem; /* Slightly softer title size */
+    animation: none; /* Removed the pulsing animation */
+    color: #00796b; /* Stronger accent color */
+    text-shadow: none;
     margin-bottom: 20px;
 }
 
+h2 {
+    color: #00796b;
+    margin-top: 20px;
+}
+
+.rules-section ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+}
+
+.rules-section li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.cyber-text {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
 .highlight {
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
+    color: #00796b;
     font-weight: bold;
 }
 
@@ -63,12 +73,13 @@ h1, .cyber-title {
 .question-type-selection label {
     margin: 0 10px;
     cursor: pointer;
+    color: #004d40;
 }
 
 input[type="radio"] {
     appearance: none;
     background-color: transparent;
-    border: 2px solid #00ff00;
+    border: 2px solid #00796b;
     border-radius: 50%;
     width: 16px;
     height: 16px;
@@ -86,7 +97,7 @@ input[type="radio"]:checked::before {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #00ff00;
+    background-color: #00796b;
 }
 
 /* Question and button styles */
@@ -98,52 +109,48 @@ input[type="radio"]:checked::before {
 }
 
 .btn {
-    background-color: rgba(0, 255, 0, 0.2);
-    border: 1px solid #00ff00;
+    background-color: #e0f7fa; /* Light blue background for buttons */
+    border: 1px solid #b2ebf2;
     border-radius: 5px;
     padding: 10px;
-    padding-right: 40px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     outline: none;
     cursor: pointer;
-    color: #00ff00;
-    text-shadow: 0 0 5px #00ff00;
+    color: #004d40;
+    text-shadow: none;
     transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background-color: rgba(0, 255, 0, 0.4);
-    box-shadow: 0 0 10px #00ff00;
+    background-color: #b2ebf2;
+    box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
 }
 
 .btn.correct {
-    background-color: #00ff00;
-    color: #0d1117;
+    background-color: #4caf50; /* Softer green for correct */
+    color: white;
     text-shadow: none;
-    box-shadow: 0 0 15px 5px #00ff00;
-    position: relative;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    border-color: #4caf50;
 }
 
 .btn.correct::after {
     content: ' ✓';
-    position: absolute;
-    right: 15px;
-    font-size: 1.5rem;
+    right: 10px;
+    font-size: 1.2rem;
 }
 
 .btn.wrong {
-    background-color: #ff0000;
-    border-color: #ff0000;
-    color: #fff;
-    box-shadow: 0 0 15px 5px #ff0000;
-    position: relative;
+    background-color: #e57373; /* Softer red for wrong */
+    border-color: #e57373;
+    color: white;
+    box-shadow: 0 0 10px rgba(229, 115, 115, 0.5);
 }
 
 .btn.wrong::after {
     content: ' ✗';
-    position: absolute;
-    right: 15px;
-    font-size: 1.5rem;
+    right: 10px;
+    font-size: 1.2rem;
 }
 
 .controls {
@@ -152,15 +159,24 @@ input[type="radio"]:checked::before {
     margin-top: 20px;
 }
 
-.start-btn, .next-btn {
-    font-size: 1.5rem;
+.start-btn, .next-btn, #proceed-btn {
+    font-size: 1.2rem;
     font-weight: bold;
     padding: 10px 20px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    background-color: #00796b; /* Stronger action button color */
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.start-btn:hover, .next-btn:hover, #proceed-btn:hover {
+    background-color: #004d40;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .hide {
-    display: none;
+    display: none !important; /* Added !important for safety */
 }
 
 /* New ending visuals styles */
@@ -171,10 +187,12 @@ input[type="radio"]:checked::before {
 .ending-text {
     position: relative;
     padding: 10px;
-    min-height: 50px;
+    min-height: 40px;
     white-space: normal;
     word-break: break-word;
     overflow-wrap: break-word;
+    font-size: 1.1rem;
+    color: #004d40;
 }
 
 .typewriter-text {
@@ -185,20 +203,20 @@ input[type="radio"]:checked::before {
 
 .cursor {
     animation: blink-caret 0.75s step-end infinite;
-    color: #00ff00;
+    color: #00796b;
 }
 
 @keyframes blink-caret {
     from, to { border-color: transparent; }
-    50% { border-color: #00ff00; }
+    50% { border-color: #00796b; }
 }
 
 .progress-bar-container {
     width: 80%;
     margin: 20px auto;
-    height: 20px;
-    background-color: rgba(0, 255, 0, 0.1);
-    border: 1px solid #00ff00;
+    height: 15px;
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -210,14 +228,14 @@ input[type="radio"]:checked::before {
 }
 
 .progress-bar-fill.success {
-    background-color: #00ff00;
-    box-shadow: 0 0 10px #00ff00;
+    background-color: #4caf50;
+    box-shadow: none;
     width: 100%;
 }
 
 .progress-bar-fill.fail {
-    background-color: #ff0000;
-    box-shadow: 0 0 10px #ff0000;
+    background-color: #e57373;
+    box-shadow: none;
     width: 50%;
 }
 
@@ -227,11 +245,11 @@ input[type="radio"]:checked::before {
 }
 
 .name-input {
-    background-color: rgba(0, 255, 0, 0.1);
-    border: 1px solid #00ff00;
-    color: #00ff00;
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    color: #004d40;
     padding: 10px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Segoe UI', sans-serif;
     font-size: 1rem;
     border-radius: 5px;
     width: 50%;
@@ -239,14 +257,13 @@ input[type="radio"]:checked::before {
 }
 
 .name-input::placeholder {
-    color: rgba(0, 255, 0, 0.7);
+    color: #00796b;
 }
-
 
 /* Leaderboard Styles */
 .leaderboard-container {
     margin-top: 40px;
-    border-top: 1px solid #00ff00;
+    border-top: 1px solid #b2ebf2;
     padding-top: 20px;
 }
 
@@ -262,7 +279,8 @@ input[type="radio"]:checked::before {
     font-size: 1rem;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px dashed rgba(0, 255, 0, 0.5);
+    border-bottom: 1px dashed rgba(0, 77, 64, 0.3);
+    color: #004d40;
 }
 
 
@@ -286,9 +304,9 @@ input[type="radio"]:checked::before {
         grid-template-columns: 1fr;
     }
 
-    .start-btn, .next-btn, .btn {
+    .start-btn, .next-btn, .btn, #proceed-btn {
         font-size: 1rem;
-        padding-right: 20px;
+        padding-right: 10px;
     }
     
     .main-container {
@@ -298,4 +316,28 @@ input[type="radio"]:checked::before {
     .name-input {
         width: 80%;
     }
+}
+
+
+/* --- NEW: Feedback & Explanation Styling --- */
+#feedback-explanation {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.feedback-correct {
+    background-color: #e8f5e9; /* Light green background */
+    color: #2e7d32; /* Dark green text */
+    border-color: #4caf50;
+}
+
+.feedback-wrong {
+    background-color: #ffebee; /* Light red background */
+    color: #d32f2f; /* Dark red text */
+    border-color: #e57373;
 }

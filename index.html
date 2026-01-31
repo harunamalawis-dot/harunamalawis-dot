@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Quiz</title>
-    <!-- CRITICAL LINE: This must match your CSS filename and location exactly -->
+    <title>Number System Quiz</title>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <div class="main-container">
-        <!-- The Intro Screen (initially visible) -->
-        <div id="intro-screen">
-            <h1 class="cyber-title">TECH QUIZ</h1>
-            <p class="cyber-text">Welcome to the Tech Quiz!</p>
+        
+        <!-- Screen 1: Instructions (Initially visible) -->
+        <div id="instruction-screen">
+            <h1>Number System Quiz</h1>
+            <p class="cyber-text">Welcome! Test your knowledge on binary, octal, decimal, and hexadecimal conversions.</p>
+            <div class="rules-section">
+                <h2>How to Play:</h2>
+                <ul>
+                    <li>**Enter Your Name:** Identify yourself for the leaderboard.</li>
+                    <li>**Select a Mode:** Choose the conversion type you want to practice.</li>
+                    <li>**Answer 15 Questions:** The quiz has exactly 15 questions.</li>
+                    <li>**Immediate Feedback:** See right away if you got the answer right or wrong, along with an explanation.</li>
+                    <li>**Track Your Score:** Your score is saved locally at the end!</li>
+                </ul>
+            </div>
+            <div class="controls">
+                <button id="proceed-btn" class="start-btn btn">PROCEED</button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Player Setup (Initially hidden) -->
+        <div id="setup-screen" class="hide">
+            <h1>Player Setup</h1>
             
             <!-- Player Name Input Section -->
             <div class="player-profile-section">
@@ -20,14 +38,12 @@
                 <input type="text" id="playerName" placeholder="Enter your name" class="name-input">
             </div>
 
-            <p class="cyber-text">Answer 15 number system questions to complete the quiz.</p>
             <div class="question-type-selection">
                 <p>Choose your question type:</p>
                 <label>
                     <input type="radio" name="qType" value="binary" checked> Binary Conversions
                 </label>
                 <label>
-                    <!-- Octal Level Added -->
                     <input type="radio" name="qType" value="octal"> Octal Conversions
                 </label>
                 <label>
@@ -37,31 +53,29 @@
                     <input type="radio" name="qType" value="hex"> Hexadecimal Conversions
                 </label>
             </div>
-            <p class="cyber-text">Click the <span class="highlight">"START QUIZ"</span> button to begin.</p>
             <div class="controls">
                 <button id="start-btn" class="start-btn btn">START QUIZ</button>
             </div>
-
+            
             <!-- Local Leaderboard Section -->
             <div class="leaderboard-container">
-                <h2 class="cyber-title" style="font-size: 1.5rem;">Local Leaderboard</h2>
+                <h2>Local Leaderboard</h2>
                 <ul id="leaderboard-list">
                     <!-- Leaderboard entries will be dynamically inserted here -->
                 </ul>
             </div>
         </div>
 
-        <!-- The Quiz Container (initially hidden) -->
+        <!-- Screen 3: The Quiz Container (Initially hidden) -->
         <div id="quiz-screen" class="hide">
-            <h1>Tech Quiz</h1>
+            <h1>Quiz Time!</h1>
             <div id="question-container">
                 <div id="question">Question</div>
                 <div id="answer-buttons" class="btn-grid">
-                    <button class="btn">Answer 1</button>
-                    <button class="btn">Answer 2</button>
-                    <button class="btn">Answer 3</button>
-                    <button class="btn">Answer 4</button>
+                    <!-- Answer buttons are generated here by JavaScript -->
                 </div>
+                <!-- This div will show feedback and explanation -->
+                <div id="feedback-explanation" class="hide"></div> 
             </div>
             <div class="controls">
                 <button id="next-btn" class="next-btn btn hide">Next Question</button>
@@ -70,7 +84,7 @@
 
         <!-- The Success Screen (initially hidden) -->
         <div id="success-screen" class="hide">
-            <h1 class="cyber-title">QUIZ COMPLETE</h1>
+            <h1>QUIZ COMPLETE</h1>
             <div class="ending-visual">
                 <div class="ending-text">
                     <span class="typewriter-text" id="final-message-success"></span><span class="cursor">_</span>
@@ -86,7 +100,7 @@
 
         <!-- The Fail Screen (initially hidden) -->
         <div id="fail-screen" class="hide">
-            <h1 class="cyber-title">QUIZ INCOMPLETE</h1>
+            <h1>QUIZ INCOMPLETE</h1>
             <div class="ending-visual">
                 <div class="ending-text">
                     <span class="typewriter-text" id="final-message-fail"></span><span class="cursor">_</span>
@@ -99,9 +113,10 @@
                 <button id="restart-btn-fail" class="start-btn btn">RETRY</button>
             </div>
         </div>
+
     </div>
     
-    <!-- ADDED: Audio tag for background music -->
+    <!-- Audio tag for background music -->
     <audio id="backgroundMusic" loop muted autoplay>
         <source src="background.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
