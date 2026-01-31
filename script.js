@@ -32,6 +32,8 @@ proceedButton.addEventListener('click', showSetupScreen);
 startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++;
+    // We can remove the explanation text here when moving to the next question
+    feedbackExplanationElement.innerText = ''; 
     setNextQuestion();
 });
 restartButtonSuccess.addEventListener('click', restartGame);
@@ -43,8 +45,8 @@ restartButtonFail.addEventListener('click', restartGame);
 function showSetupScreen() {
     instructionScreen.classList.add('hide');
     setupScreen.classList.remove('hide');
-    // Load leaderboard here when moving to setup screen
-    // displayLeaderboard(); 
+    // Load leaderboard when moving to setup screen
+    displayLeaderboard(); 
 }
 
 function startGame() {
@@ -65,11 +67,8 @@ function setNextQuestion() {
         const newQuestion = generateConversionQuestion(selectedQuestionType);
         showQuestion(newQuestion);
     } else {
-        // NOTE: You need to ensure your showFinalScreen() function is defined elsewhere in your JS file!
-        // showFinalScreen(); 
-        // Example placeholder:
-        alert(`Quiz finished! You scored ${score}/${totalQuestions}`);
-        restartGame();
+        // Go to the final screen logic
+        showFinalScreen(); 
     }
 }
 
@@ -83,23 +82,23 @@ function generateConversionQuestion(type) {
         baseFrom = 'decimal'; baseTo = 'binary';
         questionText = `What is the binary equivalent of decimal ${decimal}?`;
         correctAnswer = decimal.toString(2);
-        explanationText = `To convert ${decimal} from decimal to binary, you use repeated division by 2.`;
+        explanationText = `Decimal ${decimal} converts to binary by dividing by 2 repeatedly.`;
     } else if (type === 'octal') {
         baseFrom = 'decimal'; baseTo = 'octal';
         questionText = `What is the octal equivalent of decimal ${decimal}?`;
         correctAnswer = decimal.toString(8);
-        explanationText = `To convert ${decimal} from decimal to octal, you use repeated division by 8.`;
+        explanationText = `Decimal ${decimal} converts to octal by dividing by 8 repeatedly.`;
     } else if (type === 'hex') {
         baseFrom = 'decimal'; baseTo = 'hexadecimal';
         questionText = `What is the hexadecimal equivalent of decimal ${decimal}?`;
         correctAnswer = decimal.toString(16).toUpperCase();
-        explanationText = `To convert ${decimal} from decimal to hexadecimal, you group binary digits into fours.`;
+        explanationText = `Decimal ${decimal} converts to hexadecimal by dividing by 16 repeatedly.`;
     } else { // Decimal conversion question
         baseFrom = 'binary'; baseTo = 'decimal';
         const binaryVal = decimal.toString(2);
         questionText = `What is the decimal equivalent of binary ${binaryVal}?`;
         correctAnswer = decimal.toString();
-        explanationText = `To convert ${binaryVal} from binary to decimal, you sum the powers of 2.`;
+        explanationText = `Binary ${binaryVal} converts to decimal by summing powers of 2.`;
     }
     currentCorrectAnswer = correctAnswer; // Store for feedback
 
@@ -126,6 +125,9 @@ function generateConversionQuestion(type) {
 
 function showQuestion(question) {
     questionElement.innerText = question.question;
+    // Store the explanation on the question element temporarily
+    questionElement.dataset.explanation = question.explanation; 
+
     question.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
@@ -144,12 +146,15 @@ function resetState() {
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild);
     }
+    // Clear temporary explanation data
+    delete questionElement.dataset.explanation;
 }
 
 // Handles answer selection and immediate inline feedback
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct === 'true';
+    const explanation = questionElement.dataset.explanation || '';
 
     // Disable all buttons after one click
     Array.from(answerButtonsElement.children).forEach(button => {
@@ -167,12 +172,12 @@ function selectAnswer(e) {
         score++;
         feedbackExplanationElement.classList.add('feedback-correct');
         feedbackExplanationElement.classList.remove('feedback-wrong');
-        feedbackExplanationElement.innerHTML = `✅ **Correct!** ${questionElement.dataset.explanation || ''}`;
+        feedbackExplanationElement.innerHTML = `✅ **Correct!** ${explanation}`;
         correctSound.play();
     } else {
         feedbackExplanationElement.classList.add('feedback-wrong');
         feedbackExplanationElement.classList.remove('feedback-correct');
-        feedbackExplanationElement.innerHTML = `❌ **Wrong!** The correct answer was **${currentCorrectAnswer}**. ${questionElement.dataset.explanation || ''}`;
+        feedbackExplanationElement.innerHTML = `❌ **Wrong!** The correct answer was **${currentCorrectAnswer}**. ${explanation}`;
         wrongSound.play();
     }
 
@@ -183,7 +188,61 @@ function restartGame() {
     successScreen.classList.add('hide');
     failScreen.classList.add('hide');
     instructionScreen.classList.remove('hide');
-    // You might want to reload the page or reset state fully here depending on your needs
+    // We call displayLeaderboard() again when we eventually proceed back to the setup screen
 }
 
-// NOTE: You must ensure your showFinalScreen() and displayLeaderboard() functions are included here if they were in your original script.
+// --- Leaderboard and Final Screen Functions ---
+
+function showFinalScreen() {
+    quizScreen.classList.add('hide');
+    backgroundMusic.pause();
+
+    // Determine if the user passed (e.g., 60% pass rate)
+    const passThreshold = totalQuestions * 0.6;
+    const passed = score >= passThreshold;
+    
+    if (passed) {
+        successScreen.classList.remove('hide');
+        document.getElementById('final-message-success').innerText = `Great job, ${playerNameInput.value || 'Anonymous'}! You scored ${score} out of ${totalQuestions}.`;
+    } else {
+        failScreen.classList.remove('hide');
+        document.getElementById('final-message-fail').innerText = `Sorry, ${playerNameInput.value || 'Anonymous'}. You scored ${score} out of ${totalQuestions}. Keep practicing!`;
+    }
+    
+    saveScore(playerNameInput.value || 'Anonymous', score, selectedQuestionType);
+}
+
+
+function saveScore(name, score, type) {
+    const leaderboard = loadLeaderboard();
+    const newEntry = { name: name, score: score, type: type, date: new Date().toISOString() };
+    leaderboard.push(newEntry);
+    
+    // Sort and keep only the top 5 scores
+    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard.splice(MAX_LEADERBOARD_ENTRIES);
+    
+    localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboard));
+    displayLeaderboard();
+}
+
+function loadLeaderboard() {
+    const json = localStorage.getItem('quizLeaderboard');
+    return json ? JSON.parse(json) : [];
+}
+
+function displayLeaderboard() {
+    const leaderboard = loadLeaderboard();
+    leaderboardList.innerHTML = '';
+    leaderboard.forEach((entry, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${index + 1}. **${entry.name}** (${entry.type})</span>
+            <span>Score: ${entry.score}/${totalQuestions}</span>
+        `;
+        leaderboardList.appendChild(li);
+    });
+}
+
+// Initial call to display the leaderboard when the page first loads
+document.addEventListener('DOMContentLoaded', displayLeaderboard);
